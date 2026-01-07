@@ -21,14 +21,15 @@ async function getProjects() {
 
 export const metadata = {
   title: "Portfolio | Event Exposure Media",
-  description: "Lihat hasil karya kami dalam Event Organizer, Produksi Video, dan Pengembangan Web.",
+  description:
+    "Lihat hasil karya kami dalam Event Organizer, Produksi Video, dan Pengembangan Web.",
 };
 
 export default async function PortfolioPage() {
   const projects = await getProjects();
 
   return (
-    <main className="min-h-screen bg-black text-white pt-32 pb-20 px-6">
+    <main className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white pt-32 pb-20 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header Portfolio */}
         <div className="text-center mb-16">
@@ -36,7 +37,8 @@ export default async function PortfolioPage() {
             Selected Works <span className="text-blue-500">.</span>
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Koleksi proyek pilihan yang menunjukkan dedikasi kami terhadap detail, estetika, dan performa.
+            Koleksi proyek pilihan yang menunjukkan dedikasi kami terhadap
+            detail, estetika, dan performa.
           </p>
         </div>
 
