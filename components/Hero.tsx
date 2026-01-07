@@ -3,11 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Play } from "lucide-react";
-import { motion } from "framer-motion";
+// FIX 1: Import 'Variants' dari framer-motion
+import { motion, Variants } from "framer-motion";
 
 export default function Hero() {
-  // Konfigurasi animasi untuk kolase foto
-  const floatAnimation = {
+  // FIX 2: Tambahkan tipe ': Variants' secara eksplisit di sini
+  const floatAnimation: Variants = {
     initial: { y: 0, rotate: 0 },
     animate: { 
       y: [-10, 10, -10], 
@@ -16,7 +17,8 @@ export default function Hero() {
     }
   };
 
-  const floatAnimationReverse = {
+  // FIX 3: Tambahkan tipe ': Variants' di sini juga
+  const floatAnimationReverse: Variants = {
     initial: { y: 0, rotate: 0 },
     animate: { 
       y: [10, -10, 10], 
@@ -28,36 +30,27 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-black">
       
-      {/* --- 1. BACKGROUND LAYER (VIDEO/PHOTO) --- */}
+      {/* --- 1. BACKGROUND LAYER --- */}
       <div className="absolute inset-0 z-0">
-        {/* TODO: Ganti src video dengan file Anda sendiri.
-          Pastikan file ada di folder public, misal: /videos/hero-bg.mp4 
-          Jika tidak ada video, bisa diganti dengan <Image fill ... />
-        */}
         <video
           autoPlay
           muted
           loop
           playsInline
-          poster="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1920" // Gambar fallback jika video belum load
+          poster="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1920"
           className="object-cover w-full h-full opacity-60"
         >
-          {/* Gunakan video pendek (5-10 detik) ukuran kecil (< 5MB) agar loading cepat */}
           {/* <source src="/videos/hero-bg.webm" type="video/webm" /> */}
-          {/* <source src="/videos/hero-bg.mp4" type="video/mp4" /> */}
         </video>
-
-        {/* Dark Overlay - PENTING: Agar teks putih selalu terbaca */}
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/60" />
       </div>
       
-      {/* --- 2. CONTENT LAYER (Split Layout) --- */}
+      {/* --- 2. CONTENT LAYER --- */}
       <div className="container relative z-20 px-6 mx-auto pt-20 lg:pt-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
             
-            {/* --- KOLOM KIRI: TEXT --- */}
+            {/* KIRI: TEXT */}
             <div className="max-w-2xl">
-                {/* Badge */}
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
                   className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 border border-blue-500/30 rounded-full bg-blue-900/20 backdrop-blur-sm"
@@ -71,7 +64,6 @@ export default function Hero() {
                   </span>
                 </motion.div>
                 
-                {/* Headline - Teks selalu putih agar kontras dengan background gelap */}
                 <motion.h1 
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
                   className="text-5xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-tight"
@@ -86,7 +78,6 @@ export default function Hero() {
                   Mitra strategis untuk eksekusi event yang presisi, produksi visual sinematik, dan transformasi digital yang terukur. Kami menyatukan panggung offline dengan dunia online.
                 </motion.p>
                 
-                {/* Buttons */}
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
                   className="flex flex-col sm:flex-row gap-4"
@@ -106,13 +97,10 @@ export default function Hero() {
                 </motion.div>
             </div>
 
-            {/* --- KOLOM KANAN: PHOTO COLLAGE (Hidden on Mobile) --- */}
+            {/* KANAN: PHOTO COLLAGE */}
             <div className="hidden lg:block relative h-[600px] w-full perspective-1000">
-                {/* TODO: Ganti src gambar di bawah dengan foto kegiatan/portfolio asli Anda.
-                   Saya gunakan placeholder Unsplash yang relevan (Concert, Camera, Coding)
-                */}
-
-                {/* Foto Utama (Besar - Konser/Event) */}
+                
+                {/* Foto Utama */}
                 <motion.div 
                    variants={floatAnimation} initial="initial" animate="animate"
                    className="absolute top-[10%] left-[5%] w-[65%] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/30 z-20 border border-white/10"
@@ -128,7 +116,7 @@ export default function Hero() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 </motion.div>
 
-                 {/* Foto Kedua (Sedang - Produksi Video/Kamera) */}
+                 {/* Foto Kedua */}
                  <motion.div 
                    variants={floatAnimationReverse} initial="initial" animate="animate"
                    className="absolute top-[40%] right-[0%] w-[50%] aspect-square rounded-2xl overflow-hidden shadow-xl z-30 border border-white/10"
@@ -142,7 +130,7 @@ export default function Hero() {
                     />
                 </motion.div>
                 
-                {/* Foto Ketiga (Kecil - Digital/Koding) */}
+                {/* Foto Ketiga */}
                 <motion.div 
                    initial={{ y: 0, rotate: -5 }}
                    animate={{ y: [5, -5, 5], rotate: [-7, -3, -7] }}
@@ -158,7 +146,7 @@ export default function Hero() {
                     />
                 </motion.div>
 
-                 {/* Dekorasi/Elemen Grafis */}
+                 {/* Glow Effect */}
                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-blue-600/20 blur-[120px] rounded-full z-0 pointer-events-none" />
             </div>
 

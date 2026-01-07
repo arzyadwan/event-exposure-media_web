@@ -1,9 +1,10 @@
 "use client";
 
-import { ShieldCheck, Clock, Users, CheckCircle2, ArrowRight, Plus, Minus, FileSignature } from "lucide-react";
+import { ShieldCheck, Clock, Users, ArrowRight, Plus, Minus, FileSignature } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+// FIX: Import 'Variants' agar tidak error saat build
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 // --- 1. TRUST SNAPSHOT ---
 export function TrustSnapshot() {
@@ -42,18 +43,19 @@ export function TrustSnapshot() {
     },
   ];
 
-  // Variabel Animasi
-  const containerVars = {
+  // FIX: Tambahkan tipe ': Variants' eksplisit
+  const containerVars: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2 // Muncul berurutan selisih 0.2 detik
+        staggerChildren: 0.2
       }
     }
   };
 
-  const itemVars = {
+  // FIX: Tambahkan tipe ': Variants' eksplisit
+  const itemVars: Variants = {
     hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50 } }
   };
@@ -61,7 +63,7 @@ export function TrustSnapshot() {
   return (
     <section className="relative py-24 bg-black overflow-hidden">
       
-      {/* Background Decoration (Agar Ramai) */}
+      {/* Background Decoration */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-900/20 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-900/20 rounded-full blur-[100px] pointer-events-none" />
 
@@ -105,7 +107,7 @@ export function TrustSnapshot() {
               <div className={`absolute inset-0 opacity-0 transition-opacity duration-500 rounded-2xl ${feature.bg}`} />
               
               <div className="relative z-10">
-                {/* Icon Container with Animation */}
+                {/* Icon Container */}
                 <div className={`w-14 h-14 rounded-xl bg-black border border-gray-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                   <feature.icon className={`${feature.color}`} size={28} strokeWidth={1.5} />
                 </div>
